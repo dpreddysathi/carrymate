@@ -28,38 +28,65 @@ export function Login() {
   };
 
   return (
-    <div>
-      <h1 className="page-title">Welcome back</h1>
-      <p className="page-sub">Log in to manage your trips, requests and deals.</p>
-      <form className="form" onSubmit={submit}>
-        {error && <div className="form-error">{error}</div>}
-        <div className="form-group">
-          <label className="label">Email</label>
-          <input
-            className="input"
-            type="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">Password</label>
-          <input
-            className="input"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button className="btn btn-primary btn-block" disabled={submitting}>
-          {submitting ? 'Logging in…' : 'Log in'}
-        </button>
-        <p className="form-hint" style={{ marginTop: 12 }}>
-          New here? <Link to="/register" className="link">Create an account</Link>
+    <div className="auth-split">
+      <div className="auth-panel">
+        <h2>Your trip is someone's delivery.</h2>
+        <p>
+          Join thousands of travelers earning commission on baggage space
+          they'd waste anyway.
         </p>
-      </form>
+        <ul className="auth-pitch">
+          <li>
+            <span className="tick">✓</span>
+            <span>Escrow-protected payments on every deal</span>
+          </li>
+          <li>
+            <span className="tick">✓</span>
+            <span>Verified travelers, real ratings</span>
+          </li>
+          <li>
+            <span className="tick">✓</span>
+            <span>Customs duty estimated up front</span>
+          </li>
+        </ul>
+      </div>
+      <div className="auth-card">
+        <h1 className="page-title">Welcome back</h1>
+        <p className="page-sub">Log in to manage your trips, requests and deals.</p>
+        <div className="demo-hint">
+          🚧 <strong>Demo mode:</strong> log in with{' '}
+          <strong>demo@carrymate.app</strong> and any password.
+        </div>
+        <form className="form" onSubmit={submit}>
+          {error && <div className="form-error">{error}</div>}
+          <div className="form-group">
+            <label className="label">Email</label>
+            <input
+              className="input"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">Password</label>
+            <input
+              className="input"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button className="btn btn-primary btn-block" disabled={submitting}>
+            {submitting ? 'Logging in…' : 'Log in'}
+          </button>
+          <p className="form-hint" style={{ marginTop: 12 }}>
+            New here? <Link to="/register" className="link">Create an account</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

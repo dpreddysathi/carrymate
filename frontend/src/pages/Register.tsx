@@ -37,62 +37,85 @@ export function Register() {
   };
 
   return (
-    <div>
-      <h1 className="page-title">Join CarryMate</h1>
-      <p className="page-sub">
-        One account for everything — travel and earn, or shop the world.
-      </p>
-      <form className="form" onSubmit={submit}>
-        {error && <div className="form-error">{error}</div>}
-        <div className="form-group">
-          <label className="label">Full name</label>
-          <input
-            className="input"
-            autoComplete="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">Email</label>
-          <input
-            className="input"
-            type="email"
-            autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label className="label">Password</label>
-            <input
-              className="input"
-              type="password"
-              autoComplete="new-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className="form-hint">At least 6 characters.</p>
-          </div>
-          <div className="form-group">
-            <label className="label">Phone (optional)</label>
-            <input
-              className="input"
-              type="tel"
-              autoComplete="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-        </div>
-        <button className="btn btn-primary btn-block" disabled={submitting}>
-          {submitting ? 'Creating account…' : 'Create account'}
-        </button>
-        <p className="form-hint" style={{ marginTop: 12 }}>
-          Already have an account? <Link to="/login" className="link">Log in</Link>
+    <div className="auth-split">
+      <div className="auth-panel">
+        <h2>One account, two ways to earn.</h2>
+        <p>
+          Travel and get paid for your baggage space — or shop products
+          from abroad at local-store prices.
         </p>
-      </form>
+        <ul className="auth-pitch">
+          <li>
+            <span className="tick">✓</span>
+            <span>List a trip in under a minute</span>
+          </li>
+          <li>
+            <span className="tick">✓</span>
+            <span>Request any product from any country</span>
+          </li>
+          <li>
+            <span className="tick">✓</span>
+            <span>Money held safely until delivery</span>
+          </li>
+        </ul>
+      </div>
+      <div className="auth-card">
+        <h1 className="page-title">Join CarryMate</h1>
+        <p className="page-sub">
+          One account for everything — travel and earn, or shop the world.
+        </p>
+        <form className="form" onSubmit={submit}>
+          {error && <div className="form-error">{error}</div>}
+          <div className="form-group">
+            <label className="label">Full name</label>
+            <input
+              className="input"
+              autoComplete="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label className="label">Email</label>
+            <input
+              className="input"
+              type="email"
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label className="label">Password</label>
+              <input
+                className="input"
+                type="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p className="form-hint">At least 6 characters.</p>
+            </div>
+            <div className="form-group">
+              <label className="label">Phone (optional)</label>
+              <input
+                className="input"
+                type="tel"
+                autoComplete="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+          </div>
+          <button className="btn btn-primary btn-block" disabled={submitting}>
+            {submitting ? 'Creating account…' : 'Create account'}
+          </button>
+          <p className="form-hint" style={{ marginTop: 12 }}>
+            Already have an account? <Link to="/login" className="link">Log in</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

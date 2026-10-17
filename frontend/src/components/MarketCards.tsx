@@ -10,21 +10,22 @@ export function pillFor(status: string): string {
     case 'COMPLETED':
     case 'RELEASED':
     case 'VERIFIED':
-      return 'pill-green';
+      return 'pill-teal';
     case 'CANCELLED':
     case 'REJECTED':
     case 'DISPUTED':
       return 'pill-red';
     case 'PROPOSED':
-    case 'ACCEPTED':
-    case 'PURCHASED':
-    case 'HELD':
     case 'PENDING':
+    case 'HELD':
       return 'pill-amber';
+    case 'ACCEPTED':
     case 'MATCHED':
     case 'IN_TRANSIT':
-    case 'DELIVERED':
       return 'pill-blue';
+    case 'PURCHASED':
+    case 'DELIVERED':
+      return 'pill-indigo';
     default:
       return 'pill-gray';
   }
@@ -42,35 +43,51 @@ export function routeLabel(
 }
 
 export function TravelerLine({ traveler }: { traveler: Trip['traveler'] }) {
+  const initial = (traveler.name || '?').trim().charAt(0).toUpperCase();
   return (
-    <p className="card-meta">
-      by <strong>{traveler.name}</strong>{' '}
-      {traveler.travelerVerified && (
-        <span className="badge-verified">✓ verified</span>
-      )}{' '}
-      {traveler.ratingCount > 0 && (
-        <span className="rating">★ {traveler.ratingAvg.toFixed(1)}</span>
-      )}
-    </p>
+    <div className="traveler-row">
+      <span className="avatar" aria-hidden="true">
+        {initial}
+      </span>
+      <p className="card-meta">
+        <strong>{traveler.name}</strong>{' '}
+        {traveler.travelerVerified && (
+          <span className="badge-verified">✓ verified</span>
+        )}{' '}
+        {traveler.ratingCount > 0 && (
+          <span className="rating">★ {traveler.ratingAvg.toFixed(1)}</span>
+        )}
+      </p>
+    </div>
   );
 }
 
 export function TripCard({ trip }: { trip: Trip }) {
+  const from = trip.fromCity ? `${trip.fromCity}, ${trip.fromCountry}` : trip.fromCountry;
+  const to = trip.toCity ? `${trip.toCity}, ${trip.toCountry}` : trip.toCountry;
   return (
     <Link to={`/trips/${trip.id}`} className="card-link">
       <div className="card">
         <div className="card-row">
-          <h3 className="card-title">
-            {routeLabel(trip.fromCity, trip.fromCountry, trip.toCity, trip.toCountry)}
-          </h3>
           <span className={`pill ${pillFor(trip.status)}`}>{trip.status}</span>
+          {trip.commissionPct != null && (
+            <span className="chip chip-accent">💰 {trip.commissionPct}% commission</span>
+          )}
+        </div>
+        <div className="route">
+          <span>{from}</span>
+          <span className="route-plane" aria-hidden="true">
+            ✈
+          </span>
+          <span>{to}</span>
         </div>
         <TravelerLine traveler={trip.traveler} />
-        <p className="card-meta">
-          Departs {trip.departureDate}
-          {trip.availableKg != null && ` · ${trip.availableKg} kg space`}
-          {trip.commissionPct != null && ` · ${trip.commissionPct}% commission`}
-        </p>
+        <div className="card-row">
+          <span className="card-meta">🗓 {trip.departureDate}</span>
+          {trip.availableKg != null && (
+            <span className="chip">🎒 {trip.availableKg} kg space</span>
+          )}
+        </div>
         {trip.categories && (
           <p className="card-meta">Carries: {trip.categories}</p>
         )}
@@ -84,9 +101,10 @@ export function RequestCard({ req }: { req: ProductRequest }) {
     <Link to={`/requests/${req.id}`} className="card-link">
       <div className="card">
         <div className="card-row">
-          <h3 className="card-title">{req.productName}</h3>
           <span className={`pill ${pillFor(req.status)}`}>{req.status}</span>
+          <span className="pill pill-gray">{req.category}</span>
         </div>
+        <h3 className="card-title">📦 {req.productName}</h3>
         <p className="card-meta">
           Buy in {req.buyCity ? `${req.buyCity}, ` : ''}
           {req.buyCountry} · deliver to {req.deliverCity ?? req.deliverCountry ?? '—'}
@@ -98,9 +116,8 @@ export function RequestCard({ req }: { req: ProductRequest }) {
             </strong>{' '}
             <span className="small">max × {req.quantity}</span>
           </span>
-          <span className="pill pill-gray">{req.category}</span>
+          <span className="card-meta">by {req.shopper.name}</span>
         </div>
-        <p className="card-meta">by {req.shopper.name}</p>
       </div>
     </Link>
   );

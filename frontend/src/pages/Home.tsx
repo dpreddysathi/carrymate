@@ -44,7 +44,10 @@ export function Home() {
   return (
     <div>
       <section className="hero">
-        <h1 className="hero-title">Shop the world, carried by travelers</h1>
+        <span className="hero-badge">✈️ Travelers are already flying — ride along</span>
+        <h1 className="hero-title">
+          Shop the world, <span className="grad">carried by travelers</span>
+        </h1>
         <p className="hero-sub">
           Someone is already flying where you want to buy. List your trip
           and earn commission, or get that iPhone, those sneakers, that
@@ -52,11 +55,25 @@ export function Home() {
         </p>
         <div className="hero-actions">
           <Link to="/trips/new" className="btn btn-primary">
-            List your trip
+            ✈️ List your trip
           </Link>
           <Link to="/requests/new" className="btn btn-secondary">
-            Request a product
+            🛍️ Request a product
           </Link>
+        </div>
+        <div className="hero-stats">
+          <div className="stat">
+            <div className="stat-num">120+</div>
+            <div className="stat-label">Trips listed</div>
+          </div>
+          <div className="stat">
+            <div className="stat-num">850+</div>
+            <div className="stat-label">Deliveries done</div>
+          </div>
+          <div className="stat">
+            <div className="stat-num">25</div>
+            <div className="stat-label">Countries</div>
+          </div>
         </div>
       </section>
 
