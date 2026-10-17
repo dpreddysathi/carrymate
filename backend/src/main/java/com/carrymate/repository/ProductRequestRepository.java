@@ -14,12 +14,13 @@ public interface ProductRequestRepository extends JpaRepository<ProductRequest, 
 
     List<ProductRequest> findByStatusOrderByCreatedAtDesc(RequestStatus status);
 
-    @Query("SELECT r FROM ProductRequest r WHERE r.status = 'OPEN'"
+    @Query("SELECT r FROM ProductRequest r WHERE r.status = :status"
             + " AND (:buyCountry IS NULL OR LOWER(r.buyCountry) LIKE LOWER(CONCAT('%', :buyCountry, '%')))"
             + " AND (:category IS NULL OR LOWER(r.category) = LOWER(:category))"
             + " AND (:q IS NULL OR LOWER(r.productName) LIKE LOWER(CONCAT('%', :q, '%')))"
             + " ORDER BY r.createdAt DESC")
-    List<ProductRequest> search(@Param("buyCountry") String buyCountry,
+    List<ProductRequest> search(@Param("status") RequestStatus status,
+                                @Param("buyCountry") String buyCountry,
                                 @Param("category") String category,
                                 @Param("q") String q);
 }

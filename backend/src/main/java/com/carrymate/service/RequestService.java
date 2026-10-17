@@ -74,7 +74,7 @@ public class RequestService {
 
     @Transactional(readOnly = true)
     public List<RequestDto> search(String buyCountry, String category, String q) {
-        return requestRepository.search(
+        return requestRepository.search(RequestStatus.OPEN,
                 blankToNull(buyCountry), blankToNull(category), blankToNull(q))
                 .stream().map(RequestDto::from).toList();
     }

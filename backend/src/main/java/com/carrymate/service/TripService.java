@@ -71,7 +71,7 @@ public class TripService {
 
     @Transactional(readOnly = true)
     public List<TripDto> search(String from, String to, LocalDate date) {
-        return tripRepository.search(
+        return tripRepository.search(TripStatus.OPEN,
                 blankToNull(from), blankToNull(to), date).stream()
                 .map(TripDto::from).toList();
     }
