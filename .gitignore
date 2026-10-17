@@ -1,0 +1,23 @@
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+
+# Node
+node_modules/
+frontend/dist/
+
+# H2 data (local dev database)
+data/
+backend/data/
+
+# Env & secrets
+.env
+*.env
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.iml
